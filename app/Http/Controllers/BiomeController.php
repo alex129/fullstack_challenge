@@ -6,6 +6,7 @@ use App\Http\Requests\StoreOrganismRequest;
 use App\Models\Organism;
 use App\Models\Sample;
 use App\Repositories\Eloquent\OrganismRepository;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
@@ -65,8 +66,10 @@ class BiomeController extends Controller
         //
         // Could be done with plain sql or better using laravel models
 
-        return DB::select("
-            select * from organisms
-        ");
+        return Organism::withCount('abundances')
+            ->orderBy('abundances_count', 'desc')
+            ->take(10)
+            ->get()
+            ->each->append('common_crops');
     }
 }
