@@ -1,0 +1,16 @@
+.git
+vendor/
+node_modules/
+run.sh
+bash.sh
+psql.sh
+
+composer.json
+composer.lock
+package.json
+package-lock.json
+
+# This will be mounted from the host so we can use hot reload
+app
+public
+resources
