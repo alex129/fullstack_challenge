@@ -58,6 +58,7 @@ ARG DOCKER_UID
 ARG DOCKER_GID
 
 # Create a user biome with group biome
+#
 RUN groupadd -g ${DOCKER_GID} biome && \
     useradd -r -u ${DOCKER_UID} --create-home -g biome biome && \
     # biome user can use sudo

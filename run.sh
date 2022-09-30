@@ -1,7 +1,8 @@
 #!/bin/bash
 
 DOCKER_UID=$(id -u)
-DOCKER_GID=$(id -g)
+# DOCKER_GID=$(id -g)
+DOCKER_GID=9999999
 
 
 echo "****************************************"

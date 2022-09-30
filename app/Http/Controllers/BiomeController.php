@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreOrganismRequest;
 use App\Models\Organism;
 use App\Models\Sample;
+use App\Repositories\Eloquent\OrganismRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
@@ -13,44 +15,50 @@ use Illuminate\Support\Facades\DB;
  */
 class BiomeController extends Controller
 {
+    protected $organismRepo;
 
+    public function __construct(OrganismRepository $organismRepo)
+    {
+        $this->organismRepo = $organismRepo;
+    }
 
     /**
      * Returns a list of samples
      */
-    public function listSamples(){
+    public function listSamples()
+    {
 
         return Sample::query()
             ->withCount('abundances')
+            ->with('crop')
             ->get();
     }
 
     /**
      * Creates a new organism
      */
-    public function newOrganism(Request $request){
-
-        // Log is configured to print to stderr
-        Log::info($request->all());
-
-        //
-        // TODO: Complete this method to create a new Organism instance
-        //
-
-        return response()->json(['error' => 'Not completed'], 400);
+    public function newOrganism(StoreOrganismRequest $request)
+    {
+        try {
+            return response()->json($this->organismRepo->store($request->all()));
+        } catch (\Exception $error) {
+            return response()->json(['error' => $error->getMessage()], 400);
+        }
     }
 
     /**
      * Returns a paginated list of organisms 
      */
-    public function listOrganisms(){
+    public function listOrganisms()
+    {
         return Organism::paginate(10);
     }
 
     /**
      * Returns the top list of organisms
      */
-    public function listOrganismsTop10(){
+    public function listOrganismsTop10()
+    {
 
         //
         // TODO: Return the top 10 organisms
@@ -60,7 +68,5 @@ class BiomeController extends Controller
         return DB::select("
             select * from organisms
         ");
-        
     }
-
 }
