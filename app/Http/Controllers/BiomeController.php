@@ -31,7 +31,7 @@ class BiomeController extends Controller
 
         return Sample::query()
             ->withCount('abundances')
-            ->with('crop')
+            ->with('crop:id,name')
             ->get();
     }
 

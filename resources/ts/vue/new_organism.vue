@@ -43,7 +43,7 @@ export default class NewOrganismVue extends Vue {
     msg = "Status";
 
     async onClick() {
-        if (this.genus !== "" || this.species !== "") {
+        if (this.genus !== "" && this.species !== "") {
             const data = {
                 genus: this.genus,
                 species: this.species

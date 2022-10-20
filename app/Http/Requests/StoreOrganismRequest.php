@@ -24,7 +24,7 @@ class StoreOrganismRequest extends FormRequest
     public function rules()
     {
         return [
-            'genus' => 'required',
+            'genus' => 'required|max:150|string',
             'species' => 'required'
         ];
     }

@@ -39,9 +39,15 @@ import axios from 'axios';
 /**
  * Type of the sample
  */
+type crop = {
+    id: number,
+    name: string
+}
+
 type SampleT = {
     code: string;
     abundances_count: number;
+    crop: crop
 }
 
 /**

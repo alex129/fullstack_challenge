@@ -13,4 +13,8 @@ class Crop extends Model
 {
     use HasFactory;
 
+    function samples() {
+        return $this->hasMany(Sample::class);
+    }
+
 }

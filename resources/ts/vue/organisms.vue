@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>Organism list ({{ organisms.length }})</h2>
-
+        
         <table class="pure-table pure-table-horizontal">
             <thead>
                 <tr>
